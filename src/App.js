@@ -68,32 +68,32 @@ const App = () => {
     return (
       <>
         {showModal ? (
-          <div>
-            <div class="modal" id="modal">
+          <div className="modal-container">
+            <div className="modal" id="modal">
               <h2>Detail Editor</h2>
-              <div class="content">{countries[modalIndex].name}</div>
-              <div class="content">{countries[modalIndex].capitalCity}</div>
-              <div class="content">
+              <div className="content">{countries[modalIndex].name}</div>
+              <div className="content">{countries[modalIndex].capitalCity}</div>
+              <div className="content">
                 <EditBox />
               </div>
-              <div class="actions">
+              <div className="actions">
                 <Button
-                  class="toggle-button"
+                  className="toggle-button"
                   negative
                   style={{ margin: "auto 2rem" }}
                   onClick={() => setShowModal(false)}
                 >
-                  Closed
+                  Close 
                 </Button>
                 <Button
-                  class="toggle-button"
+                  className="toggle-button"
                   style={{ margin: "auto 2rem" }}
                   onClick={() => setModalIndex(previous)}
                 >
                   Previous
                 </Button>
                 <Button
-                  class="toggle-button"
+                  className="toggle-button"
                   style={{ margin: "auto 2rem" }}
                   onClick={() => setModalIndex(next)}
                 >
@@ -120,7 +120,6 @@ const App = () => {
     </>
   ));
 
-  console.log("LIIIIIIIIIIIII", li);
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="App">
