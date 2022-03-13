@@ -10,7 +10,6 @@ import { Button } from "semantic-ui-react";
 import "./index.css";
 import { EditBox } from "./EditBox";
 
-
 const App = () => {
   const [modalIndex, setModalIndex] = useState(0);
   const [showModal, setShowModal] = useState(false);
@@ -125,7 +124,7 @@ const App = () => {
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="App">
-        <h1>Itinerary List </h1>
+        <h1 style={{ textAlign: "center" }}>Itinerary List </h1>
         <ul
           style={{
             listStyle: "none",
