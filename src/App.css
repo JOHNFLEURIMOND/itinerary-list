@@ -1,0 +1,81 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* EDITBOX --------------- */
+.editbox {
+  margin-bottom: 1rem;
+}
+.editbox textarea {
+  font-family: inherit;
+}
+
+.editbox .edit-action {
+  text-decoration: underline;
+  font-size: 1rem;
+  font-weight: normal;
+}
+
+.editbox .editbox-textarea {
+  outline: none;
+  border: none;
+  color: var(--text-secondary);
+  width: 100%;
+  resize: none;
+  background-color: transparent;
+  border: 1px solid #C6CBD4;
+  border-radius: .5rem;
+  padding: 1rem;
+  transition: .2s;
+}
+
+.editbox .editbox-textarea:hover{ border: #9090cc .5px solid;}
+
+.editbox .editbox-textarea:focus,
+:active,
+:visited {
+  outline: none;
+}
+
+.editbox .text-edit {
+  color: var(--text-secondary);
+  background-color: transparent;
+  font-weight: normal;
+}
+
+.editbox .edit-bottom { transform: translate(-.5rem, -1.5rem);}
