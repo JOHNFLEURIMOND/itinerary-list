@@ -32,7 +32,7 @@ const App = () => {
       .map((a) => a.x)
       .slice(0, n);
 
-    sample.filter((item) => item.capitalCity !== "");
+    sample.filter((item) => item.capitalCity);
     setCountries(sample);
   };
 
