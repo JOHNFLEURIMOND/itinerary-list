@@ -1,11 +1,11 @@
 import axios from "axios";
 import React from "react";
 import { useState, useEffect, useRef, useCallback } from "react";
-import { DndProvider,useDrag, useDrop } from "react-dnd";
+import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faCircleInfo } from "@fortawesome/free-solid-svg-icons";
-import { Button, List, Segment } from "semantic-ui-react";
+import { Button, List, Segment, Header } from "semantic-ui-react";
 import "./index.css";
 import { EditBox } from "./EditBox";
 
@@ -132,7 +132,7 @@ const App = () => {
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="App">
-        <h1 style={{ textAlign: "center" }}>Itinerary List </h1>
+        <Header as='h1' style={{ textAlign: "center" }}>Itinerary List </Header>
         <Segment
           inverted
           style={{
@@ -142,11 +142,9 @@ const App = () => {
             border: "5px solid #e1e1e1",
           }}
         >
-          <List divided inverted relaxed>
-            <List.Item>
-              <List.Header>Countries:</List.Header>
-              {li}
-            </List.Item>
+          <List.Header>Countries:</List.Header>
+          <List divided inverted relaxed> 
+            <List.Item>{li}</List.Item>
           </List>
         </Segment>
         <ul
