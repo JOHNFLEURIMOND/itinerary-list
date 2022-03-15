@@ -42,7 +42,11 @@ code {
 }
 
 .editbox .editbox-textarea:hover {
-  border: #9090cc 0.5px solid;
+  border: green 0.5px solid;
+}
+.text-edit .active-box:hover {
+  border: green 2px solid;
+  background-color: lightcoral;
 }
 
 .editbox .editbox-textarea:focus,

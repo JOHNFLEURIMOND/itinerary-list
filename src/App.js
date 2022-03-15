@@ -1,12 +1,11 @@
 import axios from "axios";
 import React from "react";
 import { useState, useEffect, useRef, useCallback } from "react";
-import { DndProvider } from "react-dnd";
+import { DndProvider,useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { useDrag, useDrop } from "react-dnd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faCircleInfo } from "@fortawesome/free-solid-svg-icons";
-import { Button } from "semantic-ui-react";
+import { Button, List, Segment } from "semantic-ui-react";
 import "./index.css";
 import { EditBox } from "./EditBox";
 
@@ -25,12 +24,13 @@ const App = () => {
   }, []);
 
   const handleClick = () => {
+    const n = 10;
     const apiData = data
       .map((x) => ({ x, r: Math.random() }))
-      .filter((x) => x.capitalCity !== "")
+      .filter((x) => x.x.capitalCity !== "")
       .sort((a, b) => a.r - b.r)
       .map((a) => a.x)
-      .slice(0, 10);
+      .slice(0, n);
 
     setCountries(apiData);
   };
@@ -70,8 +70,12 @@ const App = () => {
           <div className="modal-container">
             <div className="modal" id="modal">
               <h2>Detail Editor</h2>
-              <div className="content">{countries[modalIndex].name}</div>
-              <div className="content">{countries[modalIndex].capitalCity}</div>
+              <div className="content">
+                <b>Country:</b> {countries[modalIndex].name}
+              </div>
+              <div className="content">
+                <b>Capital City:</b> {countries[modalIndex].capitalCity}
+              </div>
               <div className="content">
                 <EditBox />
               </div>
@@ -88,28 +92,16 @@ const App = () => {
                     className="toggle-button"
                     negative
                     onClick={() => setShowModal(false)}
-                    style={{
-                      margin: "auto 1rem",
-                    }}
                   >
                     Close
                   </Button>
                   <Button
                     color="yellow"
                     onClick={() => setModalIndex(previous)}
-                    style={{
-                      margin: "auto 1rem",
-                    }}
                   >
                     Previous
                   </Button>
-                  <Button
-                    color="green"
-                    onClick={() => setModalIndex(next)}
-                    style={{
-                      margin: "auto 1rem",
-                    }}
-                  >
+                  <Button color="green" onClick={() => setModalIndex(next)}>
                     Next
                   </Button>
                 </Button.Group>
@@ -123,14 +115,17 @@ const App = () => {
 
   const li = countries.map((country, i) => (
     <div key={i}>
-      <ListItem
-        text={country.name}
-        index={i}
-        setModalIndex={setModalIndex}
-        handleRemove={handleRemove}
-        moveListItem={moveCountryListItem}
-        setShowModal={setShowModal}
-      />
+      <List.Content>
+        <ListItem
+          text={country.name}
+          index={i}
+          setModalIndex={setModalIndex}
+          handleRemove={handleRemove}
+          moveListItem={moveCountryListItem}
+          setShowModal={setShowModal}
+        />
+        {country.id}
+      </List.Content>
     </div>
   ));
 
@@ -138,17 +133,29 @@ const App = () => {
     <DndProvider backend={HTML5Backend}>
       <div className="App">
         <h1 style={{ textAlign: "center" }}>Itinerary List </h1>
-        <ul
+        <Segment
+          inverted
           style={{
             listStyle: "none",
             margin: 0,
             padding: 0,
             border: "5px solid #e1e1e1",
-            boxShadow: "1px 3px 8px #888",
           }}
         >
-          {li}
-        </ul>
+          <List divided inverted relaxed>
+            <List.Item>
+              <List.Header>Countries:</List.Header>
+              {li}
+            </List.Item>
+          </List>
+        </Segment>
+        <ul
+          style={{
+            listStyle: "none",
+            margin: 0,
+            padding: 0,
+          }}
+        ></ul>
 
         <Button
           onClick={handleClick}
@@ -216,28 +223,30 @@ const ListItem = ({
     <div
       style={{
         border: "1px solid rgba(0, 0, 0, 0.05)",
-        padding: "4px",
-        margin: "4x",
         opacity,
       }}
       ref={dragDropRef}
     >
-      <FontAwesomeIcon
-        icon={faXmark}
+      <Button
         color="red"
         style={{ display: "inline-block ", padding: "2px" }}
         onClick={() => handleRemove(index)}
-        onFocus={() => console.log("focus")}
-      />
-      <FontAwesomeIcon
-        icon={faCircleInfo}
+      >
+        {" "}
+        <FontAwesomeIcon icon={faXmark} color="white" />
+      </Button>
+      <Button
         color="black"
         style={{ display: "inline-block ", padding: "2px" }}
         onClick={() => {
           setModalIndex(index);
           setShowModal(true);
         }}
-      />
+      >
+        {" "}
+        <FontAwesomeIcon icon={faCircleInfo} color="white" />
+      </Button>
+
       {text}
     </div>
   );

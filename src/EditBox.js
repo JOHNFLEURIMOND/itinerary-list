@@ -9,8 +9,7 @@ import {
 
 export const EditBox = (props) => {
   const maxChar = 200;
-  const rows = 3;
-  const [remainedChar, setRemainedChar] = useState(200);
+  const rows = 4;
   const [isEditable, setEditable] = useState(false);
   const [todos, setTodos] = useState([]);
   const [userInput, setUseInput] = useState("");
@@ -19,9 +18,6 @@ export const EditBox = (props) => {
   const [editing, setEditing] = useState(false);
   const ref = useRef(null);
 
-  const handleChange = (e) => {
-    setRemainedChar(maxChar - e.target.value.length);
-  };
   const handleFocus = (e) => {
     setEditable(true);
   };
@@ -108,19 +104,8 @@ export const EditBox = (props) => {
         onFocus={() => {
           handleFocus();
         }}
-        className={`editbox-textarea ${
-          isEditable ? "text-edit active-box" : ""
-        } `}
+        className="editbox-textarea"
       />
-      <div
-        className={`edit-bottom  d-flex justify-content-end text-detail ${
-          isEditable ? "" : "invisible"
-        }`}
-      >
-        <i className="remained-char">
-          {remainedChar}/{maxChar}
-        </i>
-      </div>
 
       <div style={{ display: "block" }}>
         <Button
@@ -131,15 +116,15 @@ export const EditBox = (props) => {
         >
           Add
         </Button>
-        {todos.length === 0 && (
-          <h2 style={{ color: "#fff", fontWeight: "bold" }}>
-            Start Adding Notes Whenever You want...
-          </h2>
-        )}
       </div>
-      <div className="todos-container-parent">
+      {todos.length === 0 && (
+        <h2>
+          Start Adding Notes Whenever You want...
+        </h2>
+      )}
+      <div>
         {todos.map((todo, index) => (
-          <div key={todo.id} className="todos-container-child">
+          <div key={todo.id}>
             {editing && todoIndex === index ? (
               <div>
                 <Input
