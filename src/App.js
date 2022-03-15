@@ -25,13 +25,12 @@ const App = () => {
   }, []);
 
   const handleClick = () => {
-    const n = 10;
     const apiData = data
       .map((x) => ({ x, r: Math.random() }))
+      .filter((x) => x.capitalCity !== "")
       .sort((a, b) => a.r - b.r)
       .map((a) => a.x)
-      .slice(0, n)
-      .filter((item) => item.capitalCity !== "");
+      .slice(0, 10);
 
     setCountries(apiData);
   };
@@ -89,18 +88,28 @@ const App = () => {
                     className="toggle-button"
                     negative
                     onClick={() => setShowModal(false)}
+                    style={{
+                      margin: "auto 1rem",
+                    }}
                   >
                     Close
                   </Button>
-                  <Button.Or />
                   <Button
                     color="yellow"
                     onClick={() => setModalIndex(previous)}
+                    style={{
+                      margin: "auto 1rem",
+                    }}
                   >
                     Previous
                   </Button>
-                  <Button.Or />
-                  <Button color="green" onClick={() => setModalIndex(next)}>
+                  <Button
+                    color="green"
+                    onClick={() => setModalIndex(next)}
+                    style={{
+                      margin: "auto 1rem",
+                    }}
+                  >
                     Next
                   </Button>
                 </Button.Group>
@@ -113,7 +122,7 @@ const App = () => {
   };
 
   const li = countries.map((country, i) => (
-    <>
+    <div key={i}>
       <ListItem
         text={country.name}
         index={i}
@@ -122,7 +131,7 @@ const App = () => {
         moveListItem={moveCountryListItem}
         setShowModal={setShowModal}
       />
-    </>
+    </div>
   ));
 
   return (

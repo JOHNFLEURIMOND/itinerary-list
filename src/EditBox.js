@@ -1,7 +1,11 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import { TextArea, Button, Input } from "semantic-ui-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashCan, faPenToSquare, faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
+import {
+  faTrashCan,
+  faPenToSquare,
+  faFloppyDisk,
+} from "@fortawesome/free-solid-svg-icons";
 
 export const EditBox = (props) => {
   const maxChar = 200;
@@ -99,7 +103,6 @@ export const EditBox = (props) => {
         value={userInput}
         onChange={(e) => {
           setUseInput(e.target.value);
-          handleChange();
         }}
         onBlur={handleBlur}
         onFocus={() => {
@@ -130,7 +133,7 @@ export const EditBox = (props) => {
         </Button>
         {todos.length === 0 && (
           <h2 style={{ color: "#fff", fontWeight: "bold" }}>
-            Start Adding Todos...
+            Start Adding Notes Whenever You want...
           </h2>
         )}
       </div>
@@ -145,14 +148,20 @@ export const EditBox = (props) => {
                   onChange={(e) => setEditText(e.target.value)}
                   style={{ padding: "2rem  2rem 2rem 0" }}
                 />
-                <Button color="grey" onClick={() => saveEditTodoHandler(todo.id)}>
-                <FontAwesomeIcon icon={faFloppyDisk} color="white"/>
+                <Button
+                  color="grey"
+                  onClick={() => saveEditTodoHandler(todo.id)}
+                >
+                  <FontAwesomeIcon icon={faFloppyDisk} color="white" />
                 </Button>
               </div>
             ) : (
               <>
                 <div>
-                  <h4 className="todo-text" style={{ padding: "2rem 2rem 2rem 0" }}>
+                  <h4
+                    className="todo-text"
+                    style={{ padding: "2rem 2rem 2rem 0" }}
+                  >
                     {todo.text}
                   </h4>
                 </div>
@@ -161,7 +170,7 @@ export const EditBox = (props) => {
                     <Button
                       color="red"
                       onClick={() => deleteTodoHandler(todo.id)}
-                    > 
+                    >
                       <FontAwesomeIcon icon={faTrashCan} color="white" />
                     </Button>
                     <Button.Or />
