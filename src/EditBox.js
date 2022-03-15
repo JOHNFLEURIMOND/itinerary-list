@@ -1,6 +1,7 @@
 import { useState, useRef, useCallback, useEffect } from "react";
-import { TextArea, Button } from "semantic-ui-react";
-import { MdEdit, MdDelete } from "react-icons/md";
+import { TextArea, Button, Input } from "semantic-ui-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashCan, faPenToSquare, faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 
 export const EditBox = (props) => {
   const maxChar = 200;
@@ -119,7 +120,12 @@ export const EditBox = (props) => {
       </div>
 
       <div style={{ display: "block" }}>
-        <Button onClick={addTodoHandler} style={{ display: "block" }}>
+        <Button
+          inverted
+          color="green"
+          onClick={addTodoHandler}
+          style={{ display: "block" }}
+        >
           Add
         </Button>
         {todos.length === 0 && (
@@ -133,29 +139,39 @@ export const EditBox = (props) => {
           <div key={todo.id} className="todos-container-child">
             {editing && todoIndex === index ? (
               <div>
-                <input
+                <Input
                   type="text"
                   defaultValue={todo.text}
                   onChange={(e) => setEditText(e.target.value)}
+                  style={{ padding: "2rem  2rem 2rem 0" }}
                 />
-                <button onClick={() => saveEditTodoHandler(todo.id)}>
-                  Save
-                </button>
+                <Button color="grey" onClick={() => saveEditTodoHandler(todo.id)}>
+                <FontAwesomeIcon icon={faFloppyDisk} color="white"/>
+                </Button>
               </div>
             ) : (
               <>
                 <div>
-                  <h4 className="todo-text">{todo.text}</h4>
+                  <h4 className="todo-text" style={{ padding: "2rem 2rem 2rem 0" }}>
+                    {todo.text}
+                  </h4>
                 </div>
                 <div>
-                  <MdDelete
-                    className="icon"
-                    onClick={() => deleteTodoHandler(todo.id)}
-                  />
-                  <MdEdit
-                    className="icon"
-                    onClick={() => editTodoHandler(index)}
-                  />
+                  <Button.Group>
+                    <Button
+                      color="red"
+                      onClick={() => deleteTodoHandler(todo.id)}
+                    > 
+                      <FontAwesomeIcon icon={faTrashCan} color="white" />
+                    </Button>
+                    <Button.Or />
+                    <Button
+                      color="black"
+                      onClick={() => editTodoHandler(index)}
+                    >
+                      <FontAwesomeIcon icon={faPenToSquare} color="white" />
+                    </Button>
+                  </Button.Group>
                 </div>
               </>
             )}

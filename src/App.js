@@ -26,14 +26,14 @@ const App = () => {
 
   const handleClick = () => {
     const n = 10;
-    const sample = data
+    const apiData = data
       .map((x) => ({ x, r: Math.random() }))
       .sort((a, b) => a.r - b.r)
       .map((a) => a.x)
-      .slice(0, n);
+      .slice(0, n)
+      .filter((item) => item.capitalCity !== "");
 
-    sample.filter((item) => item.capitalCity);
-    setCountries(sample);
+    setCountries(apiData);
   };
 
   const handleRemove = (index) => {
@@ -45,7 +45,7 @@ const App = () => {
     (dragIndex, hoverIndex) => {
       const dragItem = countries[dragIndex];
       const hoverItem = countries[hoverIndex];
-      // Swap places of dragItem and hoverItem in the pets array
+      // Swap places of dragItem and hoverItem
       setCountries((countries) => {
         const updatedCountries = [...countries];
         updatedCountries[dragIndex] = hoverItem;
@@ -77,28 +77,33 @@ const App = () => {
                 <EditBox />
               </div>
               <div className="actions">
-                <Button
-                  className="toggle-button"
-                  negative
-                  style={{ margin: "auto 2rem" }}
-                  onClick={() => setShowModal(false)}
+                <Button.Group
+                  style={{
+                    justifyContent: "center",
+                    alignContent: "center",
+                    display: "flex",
+                    margin: "1rem auto",
+                  }}
                 >
-                  Close 
-                </Button>
-                <Button
-                  className="toggle-button"
-                  style={{ margin: "auto 2rem" }}
-                  onClick={() => setModalIndex(previous)}
-                >
-                  Previous
-                </Button>
-                <Button
-                  className="toggle-button"
-                  style={{ margin: "auto 2rem" }}
-                  onClick={() => setModalIndex(next)}
-                >
-                  Next
-                </Button>
+                  <Button
+                    className="toggle-button"
+                    negative
+                    onClick={() => setShowModal(false)}
+                  >
+                    Close
+                  </Button>
+                  <Button.Or />
+                  <Button
+                    color="yellow"
+                    onClick={() => setModalIndex(previous)}
+                  >
+                    Previous
+                  </Button>
+                  <Button.Or />
+                  <Button color="green" onClick={() => setModalIndex(next)}>
+                    Next
+                  </Button>
+                </Button.Group>
               </div>
             </div>
           </div>
@@ -138,6 +143,7 @@ const App = () => {
 
         <Button
           onClick={handleClick}
+          primary
           style={{
             textAlign: "center",
             margin: "2rem auto",
@@ -203,6 +209,7 @@ const ListItem = ({
         border: "1px solid rgba(0, 0, 0, 0.05)",
         padding: "4px",
         margin: "4x",
+        opacity,
       }}
       ref={dragDropRef}
     >

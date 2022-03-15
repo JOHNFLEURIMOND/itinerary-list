@@ -75,6 +75,7 @@ code {
   position: absolute;
   top: 25%;
   left: 35%;
+  
 }
 
 
@@ -87,6 +88,12 @@ code {
   z-index: 1000;
   background-color: rgba(0,0,0,0.75);
   display: flex;
+  animation-fill-mode: both;
+  animation-duration: 5s;
+  transition: background-color 0.5s linear;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
 }
 
 h2 {
