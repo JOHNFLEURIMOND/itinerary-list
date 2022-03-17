@@ -1,5 +1,4 @@
 import axios from "axios";
-import React from "react";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -7,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import { Button, List, Segment, Header } from "semantic-ui-react";
 import "./index.css";
-import { EditBox } from "./EditBox";
+import { CommentBox } from "./CommentBox";
 
 const App = () => {
   const [modalIndex, setModalIndex] = useState(0);
@@ -77,7 +76,7 @@ const App = () => {
                 <b>Capital City:</b> {countries[modalIndex].capitalCity}
               </div>
               <div className="content">
-                <EditBox />
+                <CommentBox />
               </div>
               <div className="actions">
                 <Button.Group
@@ -132,7 +131,9 @@ const App = () => {
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="App">
-        <Header as='h1' style={{ textAlign: "center" }}>Itinerary List </Header>
+        <Header as="h1" style={{ textAlign: "center" }}>
+          Itinerary List
+        </Header>
         <Segment
           inverted
           style={{
@@ -143,7 +144,7 @@ const App = () => {
           }}
         >
           <List.Header>Countries:</List.Header>
-          <List divided inverted relaxed> 
+          <List divided inverted relaxed>
             <List.Item>{li}</List.Item>
           </List>
         </Segment>
@@ -191,7 +192,7 @@ const ListItem = ({
   });
 
   // useDrop - the list item is also a drop area
-  const [spec, dropRef] = useDrop({
+  const [spec,dropRef] = useDrop({
     accept: "item",
     hover: (item, monitor) => {
       const dragIndex = item.index;

@@ -7,7 +7,7 @@ import {
   faFloppyDisk,
 } from "@fortawesome/free-solid-svg-icons";
 
-export const EditBox = (props) => {
+export const CommentBox = (props) => {
   const maxChar = 200;
   const rows = 4;
   const [isEditable, setEditable] = useState(false);
@@ -29,7 +29,7 @@ export const EditBox = (props) => {
     const oldTodos = [...todos];
 
     if (userInput === "") {
-      return;
+      return alert("Comment Box Is Empty!");
     } else {
       const newTodo = {
         id: Math.floor(Math.random() * 1000),
