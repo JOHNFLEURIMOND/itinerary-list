@@ -17,6 +17,7 @@ export const CommentBox = (props) => {
   const [editText, setEditText] = useState("");
   const [editing, setEditing] = useState(false);
   const ref = useRef(null);
+  const [notes, setNotes] = useState([]);
 
   const handleFocus = (e) => {
     setEditable(true);
@@ -25,8 +26,10 @@ export const CommentBox = (props) => {
     setEditable(false);
   };
 
-  const addTodoHandler = useCallback(() => {
+  const addTodoHandler = useCallback((note) => {
     const oldComments = [...comments];
+    props.notes[modalIndex] = note;
+    props.setNotes([...notes]);
 
     if (userInput === "") {
       return alert("Comment Box Is Empty!");
