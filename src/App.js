@@ -13,7 +13,7 @@ const App = () => {
   const [showModal, setShowModal] = useState(false);
   const [data, setData] = useState([]);
   const [countries, setCountries] = useState([]);
-
+  
   useEffect(() => {
     axios
       .get("https://api.worldbank.org/v2/countries?format=json")
@@ -63,6 +63,7 @@ const App = () => {
       next = 0;
     }
 
+
     return (
       <>
         {showModal ? (
@@ -76,7 +77,7 @@ const App = () => {
                 <b>Capital City:</b> {countries[modalIndex].capitalCity}
               </div>
               <div className="content">
-                <CommentBox />
+                <CommentBox notes={notes} setNotes={setNotes} modalIndex={modalIndex} />
               </div>
               <div className="actions">
                 <Button.Group
