@@ -11,9 +11,9 @@ export const CommentBox = (props) => {
   const maxChar = 200;
   const rows = 4;
   const [isEditable, setEditable] = useState(false);
-  const [todos, setTodos] = useState([]);
+  const [comments, setComments] = useState([]);
   const [userInput, setUseInput] = useState("");
-  const [todoIndex, setTodoIndex] = useState(null);
+  const [commentIndex, setCommentIndex] = useState(null);
   const [editText, setEditText] = useState("");
   const [editing, setEditing] = useState(false);
   const ref = useRef(null);
@@ -26,60 +26,60 @@ export const CommentBox = (props) => {
   };
 
   const addTodoHandler = useCallback(() => {
-    const oldTodos = [...todos];
+    const oldComments = [...comments];
 
     if (userInput === "") {
       return alert("Comment Box Is Empty!");
     } else {
-      const newTodo = {
+      const newComment = {
         id: Math.floor(Math.random() * 1000),
         text: userInput,
       };
 
-      const newTodos = oldTodos.concat(newTodo);
+      const newComments = oldTodos.concat(newComment);
 
-      setTodos(newTodos);
+      setTodos(newComments);
     }
 
     setUseInput("");
-  }, [todos, userInput]);
+  }, [comments, userInput]);
 
   const deleteTodoHandler = useCallback(
     (id) => {
-      const oldTodos = [...todos];
-      const newTodos = oldTodos.filter((todo) => todo.id !== id);
+      const oldComments = [...comments];
+      const newComments = oldComments.filter((comment) => comment.id !== id);
 
-      setTodos(newTodos);
+      setComments(newComments);
     },
-    [todos]
+    [comments]
   );
 
   const editTodoHandler = useCallback((index) => {
-    setTodoIndex(index);
+    setCommentIndex(index);
     setEditing(true);
   }, []);
 
   const saveEditTodoHandler = useCallback(
     (id) => {
       setEditing(false);
-      setTodoIndex(null);
+      setCommentIndex(null);
 
-      const oldTodos = [...todos];
+      const oldComments = [...comments];
 
-      const newTodos = oldTodos.map((todo) => {
-        if (todo.id === id) {
+      const newComments = oldComments.map((comment) => {
+        if (comment.id === id) {
           if (editText !== "") {
-            todo.text = editText;
+            comment.text = editText;
           } else {
-            return todo;
+            return comment;
           }
         }
-        return todo;
+        return comment;
       });
 
-      setTodos(newTodos);
+      setComments(newComments);
     },
-    [editText, todos]
+    [editText, comments]
   );
 
   useEffect(() => {
@@ -117,19 +117,19 @@ export const CommentBox = (props) => {
           Add
         </Button>
       </div>
-      {todos.length === 0 && (
+      {comments.length === 0 && (
         <h2>
           Start Adding Notes Whenever You want...
         </h2>
       )}
       <div>
-        {todos.map((todo, index) => (
-          <div key={todo.id}>
-            {editing && todoIndex === index ? (
+        {comments.map((comment, index) => (
+          <div key={comment.id}>
+            {editing && commentIndex === index ? (
               <div>
                 <Input
                   type="text"
-                  defaultValue={todo.text}
+                  defaultValue={comment.text}
                   onChange={(e) => setEditText(e.target.value)}
                   style={{ padding: "2rem  2rem 2rem 0" }}
                 />
@@ -147,7 +147,7 @@ export const CommentBox = (props) => {
                     className="todo-text"
                     style={{ padding: "2rem 2rem 2rem 0" }}
                   >
-                    {todo.text}
+                    {comment.text}
                   </h4>
                 </div>
                 <div>
