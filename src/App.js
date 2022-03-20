@@ -13,7 +13,8 @@ const App = () => {
   const [showModal, setShowModal] = useState(false);
   const [data, setData] = useState([]);
   const [countries, setCountries] = useState([]);
-  
+  const [notes, setNotes] = useState([]);
+
   useEffect(() => {
     axios
       .get("https://api.worldbank.org/v2/countries?format=json")
@@ -63,7 +64,10 @@ const App = () => {
       next = 0;
     }
 
-
+    const addTodoHandler = (note) => {
+      props.notes[modalIndex] = note;
+      props.setNotes([...notes]);
+    };
     return (
       <>
         {showModal ? (
@@ -77,7 +81,12 @@ const App = () => {
                 <b>Capital City:</b> {countries[modalIndex].capitalCity}
               </div>
               <div className="content">
-                <CommentBox notes={notes} setNotes={setNotes} modalIndex={modalIndex} />
+                <CommentBox
+                  notes={notes}
+                  setNotes={setNotes}
+                  modalIndex={modalIndex}
+                  addTodoHandler={addTodoHandler}
+                />
               </div>
               <div className="actions">
                 <Button.Group
@@ -193,7 +202,7 @@ const ListItem = ({
   });
 
   // useDrop - the list item is also a drop area
-  const [spec,dropRef] = useDrop({
+  const [spec, dropRef] = useDrop({
     accept: "item",
     hover: (item, monitor) => {
       const dragIndex = item.index;

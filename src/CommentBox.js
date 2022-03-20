@@ -17,7 +17,6 @@ export const CommentBox = (props) => {
   const [editText, setEditText] = useState("");
   const [editing, setEditing] = useState(false);
   const ref = useRef(null);
-  const [notes, setNotes] = useState([]);
 
   const handleFocus = (e) => {
     setEditable(true);
@@ -26,10 +25,8 @@ export const CommentBox = (props) => {
     setEditable(false);
   };
 
-  const addTodoHandler = useCallback((note) => {
+  const addCommentHandler = useCallback(() => {
     const oldComments = [...comments];
-    props.notes[modalIndex] = note;
-    props.setNotes([...notes]);
 
     if (userInput === "") {
       return alert("Comment Box Is Empty!");
@@ -39,15 +36,15 @@ export const CommentBox = (props) => {
         text: userInput,
       };
 
-      const newComments = oldTodos.concat(newComment);
+      const newComments = oldComments.concat(newComment);
 
-      setTodos(newComments);
+      setComments(newComments);
     }
 
     setUseInput("");
   }, [comments, userInput]);
 
-  const deleteTodoHandler = useCallback(
+  const deleteCommentHandler = useCallback(
     (id) => {
       const oldComments = [...comments];
       const newComments = oldComments.filter((comment) => comment.id !== id);
@@ -57,7 +54,7 @@ export const CommentBox = (props) => {
     [comments]
   );
 
-  const editTodoHandler = useCallback((index) => {
+  const editCommentHandler = useCallback((index) => {
     setCommentIndex(index);
     setEditing(true);
   }, []);
@@ -114,7 +111,7 @@ export const CommentBox = (props) => {
         <Button
           inverted
           color="green"
-          onClick={addTodoHandler}
+          onClick={addCommentHandler}
           style={{ display: "block" }}
         >
           Add
@@ -138,7 +135,7 @@ export const CommentBox = (props) => {
                 />
                 <Button
                   color="grey"
-                  onClick={() => saveEditTodoHandler(todo.id)}
+                  onClick={() => saveEditTodoHandler(comments.id)}
                 >
                   <FontAwesomeIcon icon={faFloppyDisk} color="white" />
                 </Button>
@@ -157,14 +154,14 @@ export const CommentBox = (props) => {
                   <Button.Group>
                     <Button
                       color="red"
-                      onClick={() => deleteTodoHandler(todo.id)}
+                      onClick={() => deleteCommentHandler(comments.id)}
                     >
                       <FontAwesomeIcon icon={faTrashCan} color="white" />
                     </Button>
                     <Button.Or />
                     <Button
                       color="black"
-                      onClick={() => editTodoHandler(index)}
+                      onClick={() => editCommentHandler(index)}
                     >
                       <FontAwesomeIcon icon={faPenToSquare} color="white" />
                     </Button>
